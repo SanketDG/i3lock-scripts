@@ -28,13 +28,14 @@ linecolor=00000000
 separatorcolor=00000000
 
 ringvercolor=00000000
-insidevercolor=00000000
+insidevercolor=f1c40fff
 
 ringwrongcolor=c0392bff
 insidewrongcolor=00000000
 
 keyhlcolor=AAAAAAFF
 bshlcolor=AAAAAAFF
+
 
 i3lock -t -i "$UNSPLASH_DIR"/image.png \
     --clock --force-clock --timepos="w/2:h/2" --timesize=96 --timecolor=FFFFFFFF \
@@ -44,7 +45,7 @@ i3lock -t -i "$UNSPLASH_DIR"/image.png \
     --separatorcolor=$separatorcolor --ringvercolor=$ringvercolor \
     --insidevercolor=$insidevercolor --veriftext='' --ringwrongcolor=$ringwrongcolor \
     --insidewrongcolor=$insidewrongcolor --wrongtext='' --keyhlcolor=$keyhlcolor \
-    --bshlcolor=$bshlcolor
+    --bshlcolor=$bshlcolor --noinputtext=''
 
 if ping -q -c 1 -W 1 8.8.8.8 >/dev/null && [ "$download" = true ]; then
     ./unsplash > $HOME/.local/share/unsplash/log 2>&1 && notify-send "New Lock Wallpaper Downloaded"
