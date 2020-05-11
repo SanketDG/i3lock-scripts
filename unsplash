@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+SEARCH_TERM=$1
+
+RESOLUTION=$(xrandr --current | grep '*' | uniq | awk '{print $1}')
+# Obtain Unsplash API key from https://unsplash.com/developers
+ACCESS_KEY=""
+URL="https://api.unsplash.com/photos/random?query=$1&orientation=landscape"
+DIR="$HOME/.local/share/unsplash"
+mkdir -p "$DIR"
+
+
+# Fetch a random photo from Unsplash
+RESPONSE=$(curl -H "Authorization: Client-ID ${ACCESS_KEY}" "$URL")
+DOWNLOAD_LINK=$(echo "$RESPONSE" | jq -r ".links.download")
+wget "$DOWNLOAD_LINK" -O "$DIR"/image.jpg
+
+# Using ImageMagick's convert program:
+# - Convert to desired resolution of the screen
+# - Put a black filter to darken the image
+# - Convert to png for small size
+convert "$DIR"/image.jpg -resize "$RESOLUTION"^ -gravity center -extent "$RESOLUTION" -fill black -colorize 20% "$DIR"/image.png
+rm "$DIR"/image.jpg
