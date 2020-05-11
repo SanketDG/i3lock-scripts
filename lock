@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 download=true
-
-while test $# -gt 0
+search_term=$1
+while test $# -gt 1
 do
     case "$1" in
         --no-download) download=false
@@ -48,5 +48,5 @@ i3lock -t -i "$UNSPLASH_DIR"/image.png \
     --bshlcolor=$bshlcolor --noinputtext=''
 
 if ping -q -c 1 -W 1 8.8.8.8 >/dev/null && [ "$download" = true ]; then
-    ./unsplash > $HOME/.local/share/unsplash/log 2>&1 && notify-send "New Lock Wallpaper Downloaded"
+    unsplash "$searchterm" > $HOME/.local/share/unsplash/log 2>&1 && notify-send "New Lock Wallpaper Downloaded"
 fi
